@@ -6,7 +6,7 @@
     * When a user calls a method such that we pass in a string and the return value as a new object is implemented through factory method.
     * The type of object used in factory method is determined by string (or identifier) which is passed through method.
 
-<img src="https://i.imgur.com/LiCg2Xd.jpg" alt="Factory Design Pattern" align="center">
+<p align="center"><img src="https://i.imgur.com/LiCg2Xd.jpg" alt="Factory Design Pattern"></p>
 
 * To get the objects class, we can either use `__subclasses__()` or `globals()[className]`
 
