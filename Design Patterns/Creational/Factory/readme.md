@@ -10,3 +10,68 @@
 
 * To get the objects class, we can either use `__subclasses__()` or `globals()[className]`
 
+```python
+# factory.py
+
+# A simple static factory method.
+from __future__ import generators
+import random
+
+class Shape(object):
+    # Create based on class name:
+	@staticmethod
+    def factory(type):
+        #return eval(type + "()")
+        if type == "Circle": return Circle()
+        if type == "Square": return Square()
+        assert 0, "Bad shape creation: " + type
+
+class Circle(Shape):
+    def draw(self): print("Circle.draw")
+    def erase(self): print("Circle.erase")
+
+class Square(Shape):
+    def draw(self): print("Square.draw")
+    def erase(self): print("Square.erase")
+
+# Generate shape name strings:
+def shapeNameGen(n):
+    types = Shape.__subclasses__()
+    for i in range(n):
+        yield random.choice(types).__name__
+
+shapes = \
+  [ Shape.factory(i) for i in shapeNameGen(7)]
+
+for shape in shapes:
+    shape.draw()
+    shape.erase()
+```
+
+```python
+# factory_2.py
+
+class Button(object):
+   html = ""
+   def get_html(self):
+      return self.html
+
+class Image(Button):
+   html = "<img></img>"
+
+class Input(Button):
+   html = "<input></input>"
+
+class Flash(Button):
+   html = "<obj></obj>"
+
+class ButtonFactory():
+   def create_button(self, typ):
+      targetclass = typ.capitalize()
+      return globals()[targetclass]()
+
+button_obj = ButtonFactory()
+button = ['image', 'input', 'flash']
+for b in button:
+   print button_obj.create_button(b).get_html()
+```
